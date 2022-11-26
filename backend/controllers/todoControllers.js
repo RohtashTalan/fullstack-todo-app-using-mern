@@ -17,7 +17,7 @@ exports.createTodo = async(req, res)=>{
 
         if(titleExist){
             throw new Error("This TODO is  Already Exists")
-        }
+        } 
 
         // inserting into the database
         const todo = await Todo.create({title});
@@ -117,13 +117,18 @@ exports.deleteTask =  async(req, res) => {
     const todoId=id.split("_")[0];
     const taskId=id.split("_")[1];
 
-    
-    const updateTask = await Todo.findOneAndUpdate({_id:todoId, "tasks._id":taskId}, { $unset :{"tasks.$":taskId} });
+    const getTodo = await Todo.findById(todoId);
+
+    let updatedArray = getTodo.tasks.filter(x => x._id != taskId);
+      getTodo.tasks = updatedArray;
+
+    const updateArray = await Todo.findByIdAndUpdate(todoId, getTodo);
 
 
     res.status(201).json({
         success:true,
-        message:"Task Deleted Successfully"
+        message:"Task Deleted Successfully",
+        updateArray
     })
 }
 

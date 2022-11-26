@@ -9,11 +9,13 @@ const todoSchema = new mongoose.Schema({
         unique:[true, "Entered Title Already Exists"]
         },
     tasks:[{
-        task:{type:String, trim:true, require:[true, "Title for Todo required"]},
-        taskCompleted:{type:Boolean, default:false}
+        task:{type:String, trim:true, require:[true, "Title for Task required"]},
+        taskCompleted:{type:Boolean, default:false},
          }]
     
-});
+},
+{ timestamps: true }
+);
 
 
 module.exports = mongoose.model("Todo", todoSchema);
