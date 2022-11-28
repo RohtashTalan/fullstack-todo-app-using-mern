@@ -66,7 +66,14 @@ exports.listTodos = async(req, res) => {
 exports.listTasks = async(req, res) => {
     const todoId = req.params.id;
     const tasks = await Todo.findById(todoId);
-    res.status(201).json({tasks});
+    if(tasks){
+        res.status(201).json({tasks});
+    } else{
+        res.status(401).json({
+            message:"No Todo find by Id"
+        })
+    }
+   
 }
 
 

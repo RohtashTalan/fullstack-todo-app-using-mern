@@ -11,7 +11,10 @@ const todoSchema = new mongoose.Schema({
     tasks:[{
         task:{type:String, trim:true, require:[true, "Title for Task required"]},
         taskCompleted:{type:Boolean, default:false},
-         }]
+        createdAt:{type:Date, default:Date()},
+        updatedAt:{type:Date, default:Date()}
+         }
+        ]
     
 },
 { timestamps: true }
